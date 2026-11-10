@@ -1,0 +1,45 @@
+# Secure-by-default: keep third-party assets and private state out of Git.
+*.env
+!.env.example
+!versions/toolchain.env
+*.key
+*.pem
+*.p12
+*.jks
+*token*
+*.dump
+*.db
+*.sqlite*
+*.log
+*.tar
+*.tar.gz
+*.zip
+*.jar
+*.class
+*.beam
+*.ez
+*.rpm
+*.deb
+*_data/
+runtime/
+secrets/
+logs/
+volumes/
+.cache/
+.gradle/
+node_modules/
+_build/
+deps/
+.cache/
+__pycache__/
+.pytest_cache/
+.idea/
+.vscode/
+.DS_Store
+# Do not upload source mirrors or offline artifact blobs with commits.
+sources/
+bundles/
+dist/
+artifacts/
+gateway/offline-kafka-thingsboard/build/
+# This README includes the word token but not a token file.

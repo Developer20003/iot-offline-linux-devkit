@@ -1,0 +1,36 @@
+# TEMPLATE ONLY. Do not run until the existing stand-alone
+# iot-offline-kafka-tb-bridge container is intentionally migrated.
+name: iot-offline-bridge
+services:
+  offline-kafka-thingsboard:
+    image: eclipse-temurin:17-jdk
+    container_name: iot-offline-kafka-tb-bridge
+    restart: unless-stopped
+    user: "${OFFLINE_UID:-1000}:${OFFLINE_GID:-1000}"
+    working_dir: /workspace
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 1g
+    entrypoint: ["java"]
+    command:
+      - -Xms64m
+      - -Xmx512m
+      - -cp
+      - "/workspace/build:/opt/kafka/libs/*"
+      - OfflineKafkaThingsBoardBridge
+    environment:
+      OFFLINE_KAFKA_BROKER: iot-kafka:19092
+      OFFLINE_KAFKA_TOPIC: iot-telemetry
+      OFFLINE_DEVICE_NAME: Offline_Telemetry_Test
+      OFFLINE_MQTT_TOPIC: iot/telemetry/Offline_Telemetry_Test
+      OFFLINE_THINGSBOARD_URL: http://iot-thingsboard:8080
+      TB_DEVICE_TOKEN_FILE: /run/secrets/offline_tb_device_token
+    volumes:
+      - "${OFFLINE_DEVKIT_ROOT:?Set OFFLINE_DEVKIT_ROOT}/gateway/offline-kafka-thingsboard/build:/workspace/build:ro,z"
+      - "${OFFLINE_KIT_ROOT:?Set OFFLINE_KIT_ROOT}/runtime/kafka/distribution:/opt/kafka:ro,z"
+      - "${OFFLINE_TB_TOKEN_PATH:?Set OFFLINE_TB_TOKEN_PATH}:/run/secrets/offline_tb_device_token:ro,z"
+    networks:
+      - iot-backend
+networks:
+  iot-backend:
+    external: true
