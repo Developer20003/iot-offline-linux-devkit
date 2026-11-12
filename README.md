@@ -1,6 +1,8 @@
 # IoT Offline Linux Development Kit (companion repository)
 
-**Status: starter repository / not yet a verified fully offline rebuild release.**
+**Status: six offline compilation workflows verified on openSUSE; clean-machine reproducibility and final release remain pending.**
+
+See [Offline Build Verification Matrix](docs/OFFLINE-BUILD-MATRIX.md) for exact results and remaining limitations.
 
 This repository complements, rather than replaces, the existing `iot-offline-source-kit` Windows Docker / WSL distribution and its Linux-restored installation.
 
